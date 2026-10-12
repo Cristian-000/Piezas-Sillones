@@ -7,54 +7,77 @@
 <style>
     * { box-sizing: border-box; }
     body { 
-        font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; 
+        font-family: -apple-system, BlinkMacSystemFont, sans-serif; 
         margin: 0; 
-        padding: 10px; 
+        padding: 8px; 
         background: #fff; 
         color: #000; 
     }
     h2 { 
         font-size: 16px; 
-        margin: 20px 0 10px 0; 
+        margin: 15px 0 5px 0; 
         padding-bottom: 5px; 
         border-bottom: 1.5px solid #000; 
         text-transform: uppercase; 
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
     }
     table { 
         width: 100%; 
         border-collapse: collapse; 
         table-layout: fixed; 
+        margin-bottom: 10px;
     }
     th, td { 
-        padding: 8px 0; 
+        padding: 4px 0; 
         border-bottom: 1px solid #ddd; 
-        font-size: 14px; 
-        text-align: left; 
-        vertical-align: middle;
     }
     th { 
-        font-size: 12px; 
-        color: #555; 
+        font-size: 11px; 
+        color: #666; 
+        text-align: left;
         font-weight: normal; 
     }
-    th:nth-child(1), td:nth-child(1) { width: 50%; padding-right: 5px; }
-    th:nth-child(2), td:nth-child(2) { width: 25%; padding-right: 5px; }
-    th:nth-child(3), td:nth-child(3) { width: 25%; }
+    th:nth-child(1), td:nth-child(1) { width: 45%; padding-right: 2px; }
+    th:nth-child(2), td:nth-child(2) { width: 25%; padding-right: 2px; }
+    th:nth-child(3), td:nth-child(3) { width: 18%; padding-right: 2px; }
+    th:nth-child(4), td:nth-child(4) { width: 12%; text-align: center; }
+    
     input { 
         width: 100%; 
         border: none; 
         background: #f4f4f4; 
         padding: 8px 4px; 
-        font-size: 14px; 
+        font-size: 13px; 
         color: #000; 
         outline: none; 
         border-radius: 2px;
     }
     input:focus { background: #e0e0e0; }
-    button { 
+    
+    .btn-add {
+        background: #eee;
+        color: #000;
+        border: 1px dashed #999;
+        padding: 8px;
+        width: 100%;
+        font-size: 13px;
+        cursor: pointer;
+        margin-bottom: 10px;
+    }
+    .btn-del {
+        background: none;
+        border: none;
+        color: #d00;
+        font-size: 16px;
+        font-weight: bold;
+        padding: 5px;
+    }
+    .btn-reset { 
         width: 100%; 
-        margin-top: 30px; 
-        padding: 15px; 
+        margin-top: 20px; 
+        padding: 12px; 
         background: #000; 
         color: #fff; 
         border: none; 
@@ -68,62 +91,97 @@
 
 <h2>Modelo A (1 Cuerpo)</h2>
 <table>
-    <thead>
-        <tr><th>Pieza</th><th>Medida</th><th>Cant.</th></tr>
-    </thead>
-    <tbody>
-        <tr><td>Patas delanteras</td><td><input type="text" id="a_patas_del_med" value="65 cm"></td><td><input type="number" id="a_patas_del_can" value="2"></td></tr>
-        <tr><td>Patas traseras (Base)</td><td><input type="text" id="a_patas_tras_med" value="1 m"></td><td><input type="number" id="a_patas_tras_can" value="2"></td></tr>
-        <tr><td>Soporte delantero</td><td><input type="text" id="a_sop_del_med" value="-"></td><td><input type="number" id="a_sop_del_can" value="1"></td></tr>
-        <tr><td>Tablas de asiento</td><td><input type="text" id="a_tab_asi_med" value="60 cm"></td><td><input type="number" id="a_tab_asi_can" value="7"></td></tr>
-        <tr><td>Tablas de respaldo</td><td><input type="text" id="a_tab_res_med" value="80 cm"></td><td><input type="number" id="a_tab_res_can" value="7"></td></tr>
-        <tr><td>Transversales respaldo</td><td><input type="text" id="a_trans_res_med" value="-"></td><td><input type="number" id="a_trans_res_can" value="2"></td></tr>
-        <tr><td>Apoyabrazos</td><td><input type="text" id="a_apoya_med" value="90 cm"></td><td><input type="number" id="a_apoya_can" value="2"></td></tr>
-        <tr><td>Soportes apoyabrazos</td><td><input type="text" id="a_sop_apo_med" value="-"></td><td><input type="number" id="a_sop_apo_can" value="2"></td></tr>
-    </tbody>
+    <thead><tr><th>Pieza</th><th>Medida</th><th>Cant.</th><th></th></tr></thead>
+    <tbody id="tbody_A"></tbody>
 </table>
+<button class="btn-add" onclick="agregarFila('A')">+ Agregar pieza</button>
 
 <h2>Modelo G (2 Cuerpos)</h2>
 <table>
-    <thead>
-        <tr><th>Pieza</th><th>Medida</th><th>Cant.</th></tr>
-    </thead>
-    <tbody>
-        <tr><td>Patas delanteras</td><td><input type="text" id="g_patas_del_med" value="65 cm"></td><td><input type="number" id="g_patas_del_can" value="2"></td></tr>
-        <tr><td>Patas traseras (Base)</td><td><input type="text" id="g_patas_tras_med" value="1 m"></td><td><input type="number" id="g_patas_tras_can" value="2"></td></tr>
-        <tr><td>Soporte delantero</td><td><input type="text" id="g_sop_del_med" value="1.3 m"></td><td><input type="number" id="g_sop_del_can" value="1"></td></tr>
-        <tr><td>Refuerzo central asiento</td><td><input type="text" id="g_ref_asi_med" value="-"></td><td><input type="number" id="g_ref_asi_can" value="1"></td></tr>
-        <tr><td>Tablas de asiento</td><td><input type="text" id="g_tab_asi_med" value="1.3 m"></td><td><input type="number" id="g_tab_asi_can" value="7"></td></tr>
-        <tr><td>Tablas de respaldo</td><td><input type="text" id="g_tab_res_med" value="80 cm"></td><td><input type="number" id="g_tab_res_can" value="15"></td></tr>
-        <tr><td>Transversales respaldo</td><td><input type="text" id="g_trans_res_med" value="1.3 m"></td><td><input type="number" id="g_trans_res_can" value="2"></td></tr>
-        <tr><td>Refuerzo vertical respaldo</td><td><input type="text" id="g_ref_res_med" value="80 cm"></td><td><input type="number" id="g_ref_res_can" value="1"></td></tr>
-        <tr><td>Apoyabrazos</td><td><input type="text" id="g_apoya_med" value="90 cm"></td><td><input type="number" id="g_apoya_can" value="2"></td></tr>
-        <tr><td>Soportes apoyabrazos</td><td><input type="text" id="g_sop_apo_med" value="-"></td><td><input type="number" id="g_sop_apo_can" value="2"></td></tr>
-    </tbody>
+    <thead><tr><th>Pieza</th><th>Medida</th><th>Cant.</th><th></th></tr></thead>
+    <tbody id="tbody_G"></tbody>
 </table>
+<button class="btn-add" onclick="agregarFila('G')">+ Agregar pieza</button>
 
-<button onclick="limpiarDatos()">Restablecer Valores Base</button>
+<button class="btn-reset" onclick="restablecer()">Restablecer Originales</button>
 
 <script>
-    const inputs = document.querySelectorAll('input');
+    const datosBase = {
+        A: [
+            {p: "Patas delanteras", m: "65 cm", c: "2"},
+            {p: "Patas traseras", m: "1 m", c: "2"},
+            {p: "Soporte delantero", m: "-", c: "1"},
+            {p: "Tablas asiento", m: "60 cm", c: "7"},
+            {p: "Tablas respaldo", m: "80 cm", c: "7"},
+            {p: "Transversales resp.", m: "-", c: "2"},
+            {p: "Apoyabrazos", m: "90 cm", c: "2"},
+            {p: "Soportes apoyabrazos", m: "-", c: "2"}
+        ],
+        G: [
+            {p: "Patas delanteras", m: "65 cm", c: "2"},
+            {p: "Patas traseras", m: "1 m", c: "2"},
+            {p: "Soporte delantero", m: "1.3 m", c: "1"},
+            {p: "Refuerzo central as.", m: "-", c: "1"},
+            {p: "Tablas asiento", m: "1.3 m", c: "7"},
+            {p: "Tablas respaldo", m: "80 cm", c: "15"},
+            {p: "Transversales resp.", m: "1.3 m", c: "2"},
+            {p: "Refuerzo vert. resp.", m: "80 cm", c: "1"},
+            {p: "Apoyabrazos", m: "90 cm", c: "2"},
+            {p: "Soportes apoyabrazos", m: "-", c: "2"}
+        ]
+    };
 
-    inputs.forEach(input => {
-        const valorGuardado = localStorage.getItem(input.id);
-        if (valorGuardado !== null) {
-            input.value = valorGuardado;
-        }
+    let datos = JSON.parse(localStorage.getItem('sillones_data')) || JSON.parse(JSON.stringify(datosBase));
 
-        input.addEventListener('input', () => {
-            localStorage.setItem(input.id, input.value);
+    function guardar() {
+        localStorage.setItem('sillones_data', JSON.stringify(datos));
+    }
+
+    function renderizar() {
+        ['A', 'G'].forEach(modelo => {
+            const tbody = document.getElementById(`tbody_${modelo}`);
+            tbody.innerHTML = '';
+            
+            datos[modelo].forEach((item, index) => {
+                const tr = document.createElement('tr');
+                tr.innerHTML = `
+                    <td><input type="text" value="${item.p}" oninput="actualizar('${modelo}', ${index}, 'p', this.value)"></td>
+                    <td><input type="text" value="${item.m}" oninput="actualizar('${modelo}', ${index}, 'm', this.value)"></td>
+                    <td><input type="number" value="${item.c}" oninput="actualizar('${modelo}', ${index}, 'c', this.value)"></td>
+                    <td><button class="btn-del" onclick="eliminarFila('${modelo}', ${index})">×</button></td>
+                `;
+                tbody.appendChild(tr);
+            });
         });
-    });
+    }
 
-    function limpiarDatos() {
-        if(confirm('¿Querés borrar las modificaciones y volver a los valores originales?')) {
-            localStorage.clear();
-            location.reload();
+    function actualizar(modelo, index, campo, valor) {
+        datos[modelo][index][campo] = valor;
+        guardar();
+    }
+
+    function agregarFila(modelo) {
+        datos[modelo].push({p: "", m: "", c: "1"});
+        guardar();
+        renderizar();
+    }
+
+    function eliminarFila(modelo, index) {
+        datos[modelo].splice(index, 1);
+        guardar();
+        renderizar();
+    }
+
+    function restablecer() {
+        if(confirm('¿Seguro que querés volver a los datos originales? Se perderán tus cambios.')) {
+            datos = JSON.parse(JSON.stringify(datosBase));
+            guardar();
+            renderizar();
         }
     }
+
+    // Iniciar
+    renderizar();
 </script>
 </body>
 </html>
