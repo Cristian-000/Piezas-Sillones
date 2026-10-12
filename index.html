@@ -1,160 +1,129 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Despiece de Sillones</title>
-    <script src="https://cdn.tailwindcss.com"></script>
-    <style>
-        /* Estilos base para asegurar buena visualización en móviles */
-        body {
-            background-color: #f3f4f6;
-            -webkit-tap-highlight-color: transparent;
-        }
-        input[type="number"]::-webkit-inner-spin-button, 
-        input[type="number"]::-webkit-outer-spin-button { 
-            -webkit-appearance: none; 
-            margin: 0; 
-        }
-    </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<title>Despiece Sillones</title>
+<style>
+    * { box-sizing: border-box; }
+    body { 
+        font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; 
+        margin: 0; 
+        padding: 10px; 
+        background: #fff; 
+        color: #000; 
+    }
+    h2 { 
+        font-size: 16px; 
+        margin: 20px 0 10px 0; 
+        padding-bottom: 5px; 
+        border-bottom: 1.5px solid #000; 
+        text-transform: uppercase; 
+    }
+    table { 
+        width: 100%; 
+        border-collapse: collapse; 
+        table-layout: fixed; 
+    }
+    th, td { 
+        padding: 8px 0; 
+        border-bottom: 1px solid #ddd; 
+        font-size: 14px; 
+        text-align: left; 
+        vertical-align: middle;
+    }
+    th { 
+        font-size: 12px; 
+        color: #555; 
+        font-weight: normal; 
+    }
+    th:nth-child(1), td:nth-child(1) { width: 50%; padding-right: 5px; }
+    th:nth-child(2), td:nth-child(2) { width: 25%; padding-right: 5px; }
+    th:nth-child(3), td:nth-child(3) { width: 25%; }
+    input { 
+        width: 100%; 
+        border: none; 
+        background: #f4f4f4; 
+        padding: 8px 4px; 
+        font-size: 14px; 
+        color: #000; 
+        outline: none; 
+        border-radius: 2px;
+    }
+    input:focus { background: #e0e0e0; }
+    button { 
+        width: 100%; 
+        margin-top: 30px; 
+        padding: 15px; 
+        background: #000; 
+        color: #fff; 
+        border: none; 
+        font-size: 14px; 
+        text-transform: uppercase; 
+        font-weight: bold;
+    }
+</style>
 </head>
-<body class="text-gray-800 antialiased font-sans">
+<body>
 
-    <div class="max-w-md mx-auto min-h-screen flex flex-col">
-        
-        <!-- Header -->
-        <header class="bg-amber-700 text-white p-4 shadow-md sticky top-0 z-10">
-            <h1 class="text-xl font-bold text-center">Despiece de Sillones</h1>
-        </header>
+<h2>Modelo A (1 Cuerpo)</h2>
+<table>
+    <thead>
+        <tr><th>Pieza</th><th>Medida</th><th>Cant.</th></tr>
+    </thead>
+    <tbody>
+        <tr><td>Patas delanteras</td><td><input type="text" id="a_patas_del_med" value="65 cm"></td><td><input type="number" id="a_patas_del_can" value="2"></td></tr>
+        <tr><td>Patas traseras (Base)</td><td><input type="text" id="a_patas_tras_med" value="1 m"></td><td><input type="number" id="a_patas_tras_can" value="2"></td></tr>
+        <tr><td>Soporte delantero</td><td><input type="text" id="a_sop_del_med" value="-"></td><td><input type="number" id="a_sop_del_can" value="1"></td></tr>
+        <tr><td>Tablas de asiento</td><td><input type="text" id="a_tab_asi_med" value="60 cm"></td><td><input type="number" id="a_tab_asi_can" value="7"></td></tr>
+        <tr><td>Tablas de respaldo</td><td><input type="text" id="a_tab_res_med" value="80 cm"></td><td><input type="number" id="a_tab_res_can" value="7"></td></tr>
+        <tr><td>Transversales respaldo</td><td><input type="text" id="a_trans_res_med" value="-"></td><td><input type="number" id="a_trans_res_can" value="2"></td></tr>
+        <tr><td>Apoyabrazos</td><td><input type="text" id="a_apoya_med" value="90 cm"></td><td><input type="number" id="a_apoya_can" value="2"></td></tr>
+        <tr><td>Soportes apoyabrazos</td><td><input type="text" id="a_sop_apo_med" value="-"></td><td><input type="number" id="a_sop_apo_can" value="2"></td></tr>
+    </tbody>
+</table>
 
-        <!-- Contenedor Principal -->
-        <main class="flex-1 p-4 pb-24" id="main-container">
-            <!-- Las tarjetas se renderizarán aquí mediante JavaScript -->
-        </main>
+<h2>Modelo G (2 Cuerpos)</h2>
+<table>
+    <thead>
+        <tr><th>Pieza</th><th>Medida</th><th>Cant.</th></tr>
+    </thead>
+    <tbody>
+        <tr><td>Patas delanteras</td><td><input type="text" id="g_patas_del_med" value="65 cm"></td><td><input type="number" id="g_patas_del_can" value="2"></td></tr>
+        <tr><td>Patas traseras (Base)</td><td><input type="text" id="g_patas_tras_med" value="1 m"></td><td><input type="number" id="g_patas_tras_can" value="2"></td></tr>
+        <tr><td>Soporte delantero</td><td><input type="text" id="g_sop_del_med" value="1.3 m"></td><td><input type="number" id="g_sop_del_can" value="1"></td></tr>
+        <tr><td>Refuerzo central asiento</td><td><input type="text" id="g_ref_asi_med" value="-"></td><td><input type="number" id="g_ref_asi_can" value="1"></td></tr>
+        <tr><td>Tablas de asiento</td><td><input type="text" id="g_tab_asi_med" value="1.3 m"></td><td><input type="number" id="g_tab_asi_can" value="7"></td></tr>
+        <tr><td>Tablas de respaldo</td><td><input type="text" id="g_tab_res_med" value="80 cm"></td><td><input type="number" id="g_tab_res_can" value="15"></td></tr>
+        <tr><td>Transversales respaldo</td><td><input type="text" id="g_trans_res_med" value="1.3 m"></td><td><input type="number" id="g_trans_res_can" value="2"></td></tr>
+        <tr><td>Refuerzo vertical respaldo</td><td><input type="text" id="g_ref_res_med" value="80 cm"></td><td><input type="number" id="g_ref_res_can" value="1"></td></tr>
+        <tr><td>Apoyabrazos</td><td><input type="text" id="g_apoya_med" value="90 cm"></td><td><input type="number" id="g_apoya_can" value="2"></td></tr>
+        <tr><td>Soportes apoyabrazos</td><td><input type="text" id="g_sop_apo_med" value="-"></td><td><input type="number" id="g_sop_apo_can" value="2"></td></tr>
+    </tbody>
+</table>
 
-        <!-- Footer con botón de reset -->
-        <div class="fixed bottom-0 left-0 w-full bg-white border-t border-gray-200 p-4 max-w-md mx-auto right-0 shadow-[0_-4px_6px_-1px_rgba(0,0,0,0.05)]">
-            <button onclick="resetData()" class="w-full bg-red-600 hover:bg-red-700 text-white font-bold py-3 px-4 rounded-xl shadow-sm active:scale-95 transition-transform text-lg">
-                Restablecer a fábrica
-            </button>
-        </div>
-    </div>
+<button onclick="limpiarDatos()">Restablecer Valores Base</button>
 
-    <script>
-        const STORAGE_KEY = 'sillones_despiece_data';
+<script>
+    const inputs = document.querySelectorAll('input');
 
-        // Estructura de datos por defecto
-        const defaultData = {
-            modeloA: {
-                title: "Modelo A (1 Cuerpo)",
-                color: "bg-orange-50 border-orange-200",
-                parts: {
-                    patasDelanteras: { name: "Patas delanteras", medida: "65cm", cant: 2 },
-                    patasTraseras: { name: "Patas traseras", medida: "100cm", cant: 2 },
-                    tablasAsiento: { name: "Tablas asiento", medida: "60cm", cant: 7 },
-                    tablasRespaldo: { name: "Tablas respaldo", medida: "80cm", cant: 7 },
-                    apoyabrazos: { name: "Apoyabrazos", medida: "90cm", cant: 2 }
-                }
-            },
-            modeloG: {
-                title: "Modelo G (2 Cuerpos)",
-                color: "bg-amber-50 border-amber-200",
-                parts: {
-                    patasDelanteras: { name: "Patas delanteras", medida: "65cm", cant: 2 },
-                    patasTraseras: { name: "Patas traseras", medida: "100cm", cant: 2 },
-                    tablasAsiento: { name: "Tablas asiento", medida: "130cm", cant: 7 },
-                    tablasRespaldo: { name: "Tablas respaldo", medida: "80cm", cant: 15 },
-                    apoyabrazos: { name: "Apoyabrazos", medida: "90cm", cant: 2 }
-                }
-            }
-        };
-
-        let appData = {};
-
-        // Inicializar la aplicación
-        function initApp() {
-            const savedData = localStorage.getItem(STORAGE_KEY);
-            if (savedData) {
-                try {
-                    appData = JSON.parse(savedData);
-                } catch (e) {
-                    appData = JSON.parse(JSON.stringify(defaultData));
-                }
-            } else {
-                // Copia profunda para no mutar el original
-                appData = JSON.parse(JSON.stringify(defaultData));
-            }
-            renderUI();
+    inputs.forEach(input => {
+        const valorGuardado = localStorage.getItem(input.id);
+        if (valorGuardado !== null) {
+            input.value = valorGuardado;
         }
 
-        function renderUI() {
-            const container = document.getElementById('main-container');
-            container.innerHTML = '';
+        input.addEventListener('input', () => {
+            localStorage.setItem(input.id, input.value);
+        });
+    });
 
-            for (const [modelKey, modelInfo] of Object.entries(appData)) {
-                
-                let partsHTML = '';
-                for (const [partKey, partInfo] of Object.entries(modelInfo.parts)) {
-                    partsHTML += `
-                        <div class="mb-4 bg-white p-3 rounded-lg border border-gray-100 shadow-sm">
-                            <label class="block text-sm font-semibold text-gray-700 mb-2">${partInfo.name}</label>
-                            <div class="flex space-x-3">
-                                <div class="flex-1">
-                                    <span class="block text-xs text-gray-500 mb-1 ml-1">Medida</span>
-                                    <input type="text" 
-                                           value="${partInfo.medida}" 
-                                           oninput="updateData('${modelKey}', '${partKey}', 'medida', this.value)"
-                                           class="w-full bg-gray-50 border border-gray-300 text-gray-900 text-base rounded-lg focus:ring-amber-500 focus:border-amber-500 block p-3"
-                                           placeholder="Ej: 65cm">
-                                </div>
-                                <div class="w-24">
-                                    <span class="block text-xs text-gray-500 mb-1 ml-1">Cant.</span>
-                                    <input type="number" 
-                                           value="${partInfo.cant}" 
-                                           oninput="updateData('${modelKey}', '${partKey}', 'cant', this.value)"
-                                           class="w-full bg-gray-50 border border-gray-300 text-gray-900 text-base rounded-lg focus:ring-amber-500 focus:border-amber-500 block p-3 text-center"
-                                           placeholder="0" min="0">
-                                </div>
-                            </div>
-                        </div>
-                    `;
-                }
-
-                const cardHTML = `
-                    <div class="mb-6 rounded-xl border-2 ${modelInfo.color} shadow-sm overflow-hidden">
-                        <div class="bg-black/5 p-4 border-b border-black/5">
-                            <h2 class="text-lg font-bold text-gray-800">${modelInfo.title}</h2>
-                        </div>
-                        <div class="p-4">
-                            ${partsHTML}
-                        </div>
-                    </div>
-                `;
-                
-                container.innerHTML += cardHTML;
-            }
+    function limpiarDatos() {
+        if(confirm('¿Querés borrar las modificaciones y volver a los valores originales?')) {
+            localStorage.clear();
+            location.reload();
         }
-
-        // Actualizar datos y guardar automáticamente
-        function updateData(modelKey, partKey, field, value) {
-            appData[modelKey].parts[partKey][field] = value;
-            saveToLocalStorage();
-        }
-
-        function saveToLocalStorage() {
-            localStorage.setItem(STORAGE_KEY, JSON.stringify(appData));
-        }
-
-        // Restablecer datos
-        function resetData() {
-            if (confirm("¿Estás seguro de que deseas borrar los cambios y volver a las medidas de fábrica?")) {
-                localStorage.removeItem(STORAGE_KEY);
-                location.reload();
-            }
-        }
-
-        // Arrancar la app cuando el DOM esté listo
-        document.addEventListener('DOMContentLoaded', initApp);
-    </script>
+    }
+</script>
 </body>
 </html>
