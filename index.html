@@ -36,19 +36,17 @@
         text-align: left;
         font-weight: normal; 
     }
-    /* Distribución de columnas */
+    
     th:nth-child(1), td:nth-child(1) { width: 50%; padding-right: 2px; }
     th:nth-child(2), td:nth-child(2) { width: 25%; padding-right: 2px; }
     th:nth-child(3), td:nth-child(3) { width: 25%; padding-right: 2px; }
     
-    /* Columna de eliminación oculta por defecto */
     .th-del, .td-del { 
         display: none; 
         width: 15%; 
         text-align: center; 
     }
     
-    /* Mostrar columna de eliminación cuando el body tiene la clase 'modo-edicion' */
     body.modo-edicion th:nth-child(1), body.modo-edicion td:nth-child(1) { width: 40%; }
     body.modo-edicion th:nth-child(2), body.modo-edicion td:nth-child(2) { width: 23%; }
     body.modo-edicion th:nth-child(3), body.modo-edicion td:nth-child(3) { width: 22%; }
@@ -57,16 +55,20 @@
     input { 
         width: 100%; 
         border: none; 
-        background: #f4f4f4; 
+        background: transparent; /* Fondo transparente para modo lectura */
         padding: 8px 4px; 
         font-size: 13px; 
         color: #000; 
         outline: none; 
         border-radius: 2px;
     }
-    input:focus { background: #e0e0e0; }
+    
+    /* Estilos de input sólo cuando está activa la edición */
+    body.modo-edicion input { background: #f4f4f4; }
+    body.modo-edicion input:focus { background: #e0e0e0; }
     
     .btn-add {
+        display: none; /* Oculto en modo lectura */
         background: #eee;
         color: #000;
         border: 1px dashed #999;
@@ -76,6 +78,8 @@
         cursor: pointer;
         margin-bottom: 10px;
     }
+    body.modo-edicion .btn-add { display: block; }
+    
     .btn-del {
         background: none;
         border: none;
@@ -116,11 +120,10 @@
 </table>
 <button class="btn-add" onclick="agregarFila('G')">+ Agregar pieza</button>
 
-<button class="btn-accion btn-edit" id="btnEdit" onclick="toggleEdicion()">Editar (Mostrar Eliminar)</button>
+<button class="btn-accion btn-edit" id="btnEdit" onclick="toggleEdicion()">Habilitar Edición</button>
 <button class="btn-accion btn-reset" onclick="restablecer()">Restablecer Originales</button>
 
 <script>
-    // Valores por defecto extraídos de tus capturas
     const datosBase = {
         A: [
             {p: "Patas delanteras", m: "65 cm", c: "2"},
@@ -149,14 +152,17 @@
         ]
     };
 
-    // Cargar datos de LocalStorage o usar los base
     let datos = JSON.parse(localStorage.getItem('sillones_data')) || JSON.parse(JSON.stringify(datosBase));
+    let isEditing = false;
 
     function guardar() {
         localStorage.setItem('sillones_data', JSON.stringify(datos));
     }
 
     function renderizar() {
+        // Se añade el atributo readonly si no estamos en modo edición
+        const readonlyAttr = isEditing ? '' : 'readonly';
+        
         ['A', 'G'].forEach(modelo => {
             const tbody = document.getElementById(`tbody_${modelo}`);
             tbody.innerHTML = '';
@@ -164,9 +170,9 @@
             datos[modelo].forEach((item, index) => {
                 const tr = document.createElement('tr');
                 tr.innerHTML = `
-                    <td><input type="text" value="${item.p}" oninput="actualizar('${modelo}', ${index}, 'p', this.value)"></td>
-                    <td><input type="text" value="${item.m}" oninput="actualizar('${modelo}', ${index}, 'm', this.value)"></td>
-                    <td><input type="text" value="${item.c}" oninput="actualizar('${modelo}', ${index}, 'c', this.value)"></td>
+                    <td><input type="text" value="${item.p}" ${readonlyAttr} oninput="actualizar('${modelo}', ${index}, 'p', this.value)"></td>
+                    <td><input type="text" value="${item.m}" ${readonlyAttr} oninput="actualizar('${modelo}', ${index}, 'm', this.value)"></td>
+                    <td><input type="text" value="${item.c}" ${readonlyAttr} oninput="actualizar('${modelo}', ${index}, 'c', this.value)"></td>
                     <td class="td-del"><button class="btn-del" onclick="eliminarFila('${modelo}', ${index})">×</button></td>
                 `;
                 tbody.appendChild(tr);
@@ -186,7 +192,6 @@
     }
 
     function eliminarFila(modelo, index) {
-        // Alerta de confirmación para eliminar una fila
         if(confirm('¿Estás seguro de que quieres eliminar esta pieza del listado?')) {
             datos[modelo].splice(index, 1);
             guardar();
@@ -195,7 +200,6 @@
     }
 
     function restablecer() {
-        // Alerta de confirmación para el reset
         if(confirm('¿Seguro que querés volver a los datos originales? Se borrarán todas las modificaciones y filas nuevas que hayas hecho.')) {
             datos = JSON.parse(JSON.stringify(datosBase));
             guardar();
@@ -204,20 +208,9 @@
     }
 
     function toggleEdicion() {
-        document.body.classList.toggle('modo-edicion');
+        isEditing = !isEditing;
+        document.body.classList.toggle('modo-edicion', isEditing);
         const btn = document.getElementById('btnEdit');
         
-        if(document.body.classList.contains('modo-edicion')) {
-            btn.innerText = "Ocultar botones de eliminar";
-            btn.style.background = "#666";
-        } else {
-            btn.innerText = "Editar (Mostrar Eliminar)";
-            btn.style.background = "#333";
-        }
-    }
-
-    // Iniciar renderizado al cargar
-    renderizar();
-</script>
-</body>
-</html>
+        if(isEditing) {
+            btn.innerText = "Guardar y Bloquear Edición
