@@ -55,7 +55,7 @@
     input { 
         width: 100%; 
         border: none; 
-        background: transparent; /* Fondo transparente para modo lectura */
+        background: transparent; 
         padding: 8px 4px; 
         font-size: 13px; 
         color: #000; 
@@ -63,12 +63,11 @@
         border-radius: 2px;
     }
     
-    /* Estilos de input sólo cuando está activa la edición */
     body.modo-edicion input { background: #f4f4f4; }
     body.modo-edicion input:focus { background: #e0e0e0; }
     
     .btn-add {
-        display: none; /* Oculto en modo lectura */
+        display: none; 
         background: #eee;
         color: #000;
         border: 1px dashed #999;
@@ -124,6 +123,7 @@
 <button class="btn-accion btn-reset" onclick="restablecer()">Restablecer Originales</button>
 
 <script>
+    // Los datos exactos de tus capturas
     const datosBase = {
         A: [
             {p: "Patas delanteras", m: "65 cm", c: "2"},
@@ -152,15 +152,15 @@
         ]
     };
 
-    let datos = JSON.parse(localStorage.getItem('sillones_data')) || JSON.parse(JSON.stringify(datosBase));
+    // Cambié el nombre de la memoria a "despiece_sillones_v2" para que ignore los datos viejos
+    let datos = JSON.parse(localStorage.getItem('despiece_sillones_v2')) || JSON.parse(JSON.stringify(datosBase));
     let isEditing = false;
 
     function guardar() {
-        localStorage.setItem('sillones_data', JSON.stringify(datos));
+        localStorage.setItem('despiece_sillones_v2', JSON.stringify(datos));
     }
 
     function renderizar() {
-        // Se añade el atributo readonly si no estamos en modo edición
         const readonlyAttr = isEditing ? '' : 'readonly';
         
         ['A', 'G'].forEach(modelo => {
@@ -213,4 +213,17 @@
         const btn = document.getElementById('btnEdit');
         
         if(isEditing) {
-            btn.innerText = "Guardar y Bloquear Edición
+            btn.innerText = "Guardar y Bloquear Edición";
+            btn.style.background = "#2E7D32"; 
+        } else {
+            btn.innerText = "Habilitar Edición";
+            btn.style.background = "#333";
+        }
+        renderizar(); 
+    }
+
+    // Iniciar renderizado al cargar
+    renderizar();
+</script>
+</body>
+</html>
